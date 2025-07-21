@@ -1,0 +1,11 @@
+bin/
+obj/
+*.mdf
+*.ldf
+.vs/
+*.user
+*.suo
+*.db
+*.sqlite
+.env
+.git

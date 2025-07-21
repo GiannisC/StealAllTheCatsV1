@@ -1,0 +1,26 @@
+services:
+  webapi:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - CatApi__ApiKey=${CatApi__ApiKey}
+      - ConnectionStrings__CatDb=Server=sqlserver,1433;Database=CatDb;User=sa;Password=Dev@1234;TrustServerCertificate=True;
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Dev@1234"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  tests:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: ["dotnet", "test"]
