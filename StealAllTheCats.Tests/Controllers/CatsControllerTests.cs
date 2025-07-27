@@ -20,6 +20,7 @@ namespace StealAllTheCats.Tests.Controllers
 {
     public class CatsControllerTests
     {
+        private readonly ICatFetcherJob _catFetcherJob;
         private readonly DBContext _context;
         private readonly CatsController _controller;
         private readonly IBackgroundJobClient _backgroundJobs;
@@ -32,6 +33,7 @@ namespace StealAllTheCats.Tests.Controllers
                 .Options;
 
             _context = new DBContext(options);
+            _catFetcherJob = Substitute.For<ICatFetcherJob>();
 
             // Add some cats and tags to the database
             var tagPlayful = new TagEntity { Name = "Playful" };
@@ -51,7 +53,7 @@ namespace StealAllTheCats.Tests.Controllers
             _backgroundJobs = Substitute.For<IBackgroundJobClient>();
             _logger = Substitute.For<ILogger<CatsController>>();
 
-            _controller = new CatsController(_context, _backgroundJobs, _logger);
+            _controller = new CatsController(_catFetcherJob,_context, _backgroundJobs, _logger);
         }
 
         [Fact]

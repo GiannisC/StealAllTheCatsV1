@@ -39,7 +39,7 @@ builder.Services.AddHangfire(config =>
 builder.Services.AddHangfireServer();
 
 // Services
-builder.Services.AddScoped<CatFetcherJob>(); // Background job service
+builder.Services.AddScoped<ICatFetcherJob, CatFetcherJob>(); // Background job service
 builder.Services.AddHttpClient();
 
 builder.Services.AddControllers();

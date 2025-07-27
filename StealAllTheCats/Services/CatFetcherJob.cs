@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Net.Http.Json;
 
-    public class CatFetcherJob
+    public class CatFetcherJob : ICatFetcherJob
     {
         private readonly DBContext _db;
         private readonly IHttpClientFactory _httpClientFactory;

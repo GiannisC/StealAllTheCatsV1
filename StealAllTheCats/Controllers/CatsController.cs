@@ -14,13 +14,16 @@ namespace StealAllTheCats.Controllers
         private readonly ILogger<CatsController> _logger;
         private readonly DBContext _context;
         private readonly IBackgroundJobClient _backgroundJobs;
-
-        public CatsController(DBContext context, IBackgroundJobClient backgroundJobs, ILogger<CatsController> logger)
+        private readonly ICatFetcherJob _catFetcherJob;
+        // allagh 5 - 1
+        public CatsController(ICatFetcherJob catFetcherJob, DBContext context, IBackgroundJobClient backgroundJobs, ILogger<CatsController> logger)
         {
+            _catFetcherJob = catFetcherJob;
             _context = context;
             _backgroundJobs = backgroundJobs;
             _logger = logger;
         }
+
 
         /// <summary>
         /// Fetches cats from TheCatAPI and stores them in the database.
